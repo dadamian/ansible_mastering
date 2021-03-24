@@ -1,0 +1,14 @@
+- hosts: all
+  become: true
+  tasks:
+	- name: install web components
+	  apt: name={{item}} state=present update_cache=yes
+	  with_items:
+	    - jakies tam pakiety
+      - kolejny pakiet
+    - name: ensure apache2 is started
+      service: name=apache2 state=started enabled=yes
+    - name: ensure mod_wsgi enabled
+      apache2_module: state=present name=wsgi
+      notify: restart apache2            #notify powoduje ze ze jak cos sie zmienilo w tym tasku to bedzie restart apache2
+      
